@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
-import { theme } from './styles/theme';
+import AppBar from './components/AppBar/AppBar';
 
 class App extends Component {
   render() {
@@ -20,9 +20,7 @@ class App extends Component {
     return (
       <>
         <GlobalStyles />
-        <ThemeProvider theme={theme}>
-         
-        </ThemeProvider>
+        <AppBar />
       </>
     );
   }

@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { UserProvider } from '../../context'
+import { StyledRow, MainNav } from '../../styles/common/AppBar';
 
 class AppBar extends Component {
-    render() {
-        return (
-            <nav>
-                <Row>
+  render() {
+    return (
+      <StyledRow>
+        <MainNav>
 
-                </Row>
-            </nav>
-        )
-    }
+        </MainNav>
+      </StyledRow>
+    );
+  }
 }
+
+export default AppBar;

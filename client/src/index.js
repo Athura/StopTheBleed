@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 
+import colors from './styles/color';
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -9,7 +11,7 @@ const rootEl = document.getElementById('root');
 
 const render = () => {
     ReactDOM.render(
-        <ThemeProvider>
+        <ThemeProvider theme={colors}>
             <App />
         </ThemeProvider>,
         rootEl
