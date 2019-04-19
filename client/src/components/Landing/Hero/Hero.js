@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Wrapper, Half, Image, Padding, Header, Paragraph } from '../../../styles/component/hero';
-import doctor from '../../../styles/images/doctor.svg';
+import  doctor from '../../../styles/images/doctor.svg';
 import { Button } from '../../../styles/common/button';
 
 const Hero = () => {

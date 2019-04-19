@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledRow = styled.div`
-    z-index: 5;
+    z-index: 20;
 `;
 
 export const MainNav = styled.nav`
