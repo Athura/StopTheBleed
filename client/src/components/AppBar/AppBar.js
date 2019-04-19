@@ -9,8 +9,8 @@ class AppBar extends Component {
         <MainNav>
           <StyledTitle>Stop The Bleed</StyledTitle>
           <div>
-            <Button  about>Home</Button>
-            <Button  about>About</Button>
+            <Button underline  about>Home</Button>
+            <Button underline about>About</Button>
             <Button border about>Login</Button>
           </div>
         </MainNav>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createGlobalStyle } from 'styled-components';
 
 import AppBar from './components/AppBar/AppBar';
+import Landing from './components/Landing/Landing';
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
       <>
         <GlobalStyles />
         <AppBar />
+        <Landing />
       </>
     );
   }
