@@ -20,4 +20,5 @@ export const StyledTitle = styled.h1`
     font-weight: bold;
     letter-spacing: 2px;
     padding: 20px 60px;
+    font-family: 'Karla'
 `;

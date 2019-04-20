@@ -4,6 +4,7 @@ const colors = {
   maroonapp: '#811702',
   blackapp: '#0e0b0a',
   pinkapp: '#fb8b73',
+  greycooler: '#D7D9D8',
   warning: '#DC143C',
   success: '#7FFF00',
   information: '#F0E68C',
