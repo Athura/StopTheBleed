@@ -42,7 +42,7 @@ export const Half = styled.div`
 
 export const Image = styled.img`
   width: 100%;
-  height: auto;
+  height: 600px;
 
   animation: ${MoveUpDown} 2s infinite alternate;
 `;
