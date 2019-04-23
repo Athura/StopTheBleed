@@ -7,3 +7,4 @@ Libraries + technologies used in the frontend:
 * Context API for state management
 * Jest + enzyme for unit testing
 * Generated Favicon from: https://realfavicongenerator.net/
+* Greensock for animation (gsap) -- timeline + modal component

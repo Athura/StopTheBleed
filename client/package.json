@@ -4,6 +4,7 @@
   "description": "HackerEarth competition",
   "private": true,
   "dependencies": {
+    "gsap": "^2.1.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
