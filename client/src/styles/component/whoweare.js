@@ -22,7 +22,8 @@ export const Header = styled.h3`
 `;
 
 export const Paragraph = styled.p`
-  font-size: 20px;
+  font-size: 18px;
+  font-family: 'Poppins';
 `;
 
 export const SectionHeader = styled.h1`
