@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { Header } from '../../../styles/component/information';
+import Sections from './Sections';
+
 import complete from '../../../styles/images/undraw_completed_ngx6.svg';
 import medicine from '../../../styles/images/undraw_medicine_b1ol.svg';
 import teacher from '../../../styles/images/undraw_teacher_35j2.svg';
@@ -32,8 +35,8 @@ const info = [
     },
     {
         key: '4',
-        title: 'Complete',
-        body: 'To develop a collaborative community of like minded people and organizations to help train and equip the nation',
+        title: 'Why It Matters',
+        body: 'Uncontrolled bleeding is a major cause of preventable deaths. Approximately 40% of trauma-related deaths worldwide are due to bleeding or its consequences, establishing hemorrhage as the most common cause of preventable death in trauma.',
         src: complete,
         alt: 'complete',
         link: '#'
@@ -43,6 +46,10 @@ const info = [
 const Information = () => {
     return (
         <>
+            <Header>What We Do</Header>
+            <Sections info={info} />
         </>
     )
 }
+
+export default Information;
