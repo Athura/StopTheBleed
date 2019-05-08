@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const ClassSchema = new mongoose.Schema({
   user: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "users"
   },
   description: {
@@ -28,7 +28,7 @@ const ClassSchema = new mongoose.Schema({
   students: [
     {
       user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "users"
       }
     }
@@ -36,7 +36,7 @@ const ClassSchema = new mongoose.Schema({
   comments: [
     {
       user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "users"
       },
       text: {

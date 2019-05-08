@@ -29,8 +29,7 @@ router.post(
       "userType",
       "Please select which type of user you are: Teacher or Student."
     ).not().isEmpty(),
-    check('userType', "Please provide a valid user type").isIn(["teacher", "student"]),
-    check("location", "Please provide a location").not().isEmpty()
+    check('userType', "Please provide a valid user type").isIn(["teacher", "student"])
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -40,7 +39,7 @@ router.post(
       });
     }
 
-    const { name, email, password, location, userType } = req.body;
+    const { name, email, password, userType } = req.body;
 
     try {
       let user = await User.findOne({
@@ -68,7 +67,6 @@ router.post(
         email,
         password,
         avatar,
-        location,
         userType
       });
 

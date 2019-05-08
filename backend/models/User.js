@@ -17,10 +17,6 @@ const UserSchema = new mongoose.Schema({
     avatar: {
         type: String
     },
-    location: {
-        type: String,
-        required: true
-    },
     userType: {
         type: String,
         required: true
