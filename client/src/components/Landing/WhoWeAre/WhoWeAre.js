@@ -29,7 +29,7 @@ const WhoWeAre = () => {
         <div className="container">
             <SectionHeader> Who We Are </SectionHeader>
             <Container>
-                <Sections section={what} />
+                    <Sections section={what} />
             </Container>
         </div>
     )

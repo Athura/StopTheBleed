@@ -16,7 +16,7 @@ export const Button = styled.a`
       border-radius: 10px;
     `}
   ${props =>
-    props.about &&
+    props.upper &&
     css`
       text-transform: uppercase;
       letter-spacing: 2px;
