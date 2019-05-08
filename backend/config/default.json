@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://joshua:ColdHearted@1995@cluster0-8nmhh.mongodb.net/test?retryWrites=true"
+  "mongoURI": "mongodb+srv://joshua:ColdHearted@1995@cluster0-8nmhh.mongodb.net/test?retryWrites=true",
+  "jwtSecret": "stopthebleedhackathon2019"
 }
