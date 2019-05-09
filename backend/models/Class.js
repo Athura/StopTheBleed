@@ -19,7 +19,6 @@ const ClassSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    required: true
   },
   location: {
       type: String,
