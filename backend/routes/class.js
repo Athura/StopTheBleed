@@ -68,4 +68,14 @@ router.post("/", auth, [
     }
 });
 
+router.put("/:id", auth, async (req, res) => {
+    try {
+        const updateClass = await Class.findOne({
+            classId: req.params.id
+        });
+    } catch (err) {
+
+    }
+})
+
 module.exports = router;
