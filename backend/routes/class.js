@@ -160,8 +160,33 @@ router.put('/enroll/:class_id', auth, async (req, res) => {
   }
 });
 
-// @route     DELETE api/posts/unlike/:id
-// @desc      Unlike a post
+// @route     DELETE api/posts/unenroll/:class_id
+// @desc      Unenroll in a class
 // @access    private
+router.delete('/unenroll/:class_id', auth, async (req, res) => {
+    try {
+        const unenroll = await Class.findById(req.params.class_id);
+
+        if (
+          unenroll.students.filter(
+            enrollment => enrollment.user.toString() === req.user.id
+          ).length === 0
+        ) {
+          return res.status(400).json({
+            msg: 'Student is not enrolled in this class.'
+          });
+        }
+
+        const removeIndex = unenroll.students.map(enrollment => enrollment.user.toString().indexOf(req.user.id));
+
+        unenroll.students.splice(removeIndex, 1);
+        
+        await unenroll.save();
+        res.json(unenroll.students);
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error!');
+      }
+    });
 
 module.exports = router;
