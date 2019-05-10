@@ -160,33 +160,87 @@ router.put('/enroll/:class_id', auth, async (req, res) => {
   }
 });
 
-// @route     DELETE api/posts/unenroll/:class_id
+// @route     DELETE api/class/unenroll/:class_id
 // @desc      Unenroll in a class
 // @access    private
 router.delete('/unenroll/:class_id', auth, async (req, res) => {
+  try {
+    const unenroll = await Class.findById(req.params.class_id);
+
+    if (
+      unenroll.students.filter(
+        enrollment => enrollment.user.toString() === req.user.id
+      ).length === 0
+    ) {
+      return res.status(400).json({
+        msg: 'Student is not enrolled in this class.'
+      });
+    }
+
+    const removeIndex = unenroll.students.map(enrollment =>
+      enrollment.user.toString().indexOf(req.user.id)
+    );
+
+    unenroll.students.splice(removeIndex, 1);
+
+    await unenroll.save();
+    res.json(unenroll.students);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error!');
+  }
+});
+
+// @route     POST api/class/comment/:class_id
+// @desc      Teacher posting a comment for their class
+// @access    private
+router.post(
+  '/comment/:class_id',
+  auth,
+  [
+    check('text', 'Text is required.')
+      .not()
+      .isEmpty(),
+    check('name', 'You must provide a name for your announcement.')
+      .not()
+      .isEmpty()
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array()
+      });
+    }
+
     try {
-        const unenroll = await Class.findById(req.params.class_id);
-
-        if (
-          unenroll.students.filter(
-            enrollment => enrollment.user.toString() === req.user.id
-          ).length === 0
-        ) {
-          return res.status(400).json({
-            msg: 'Student is not enrolled in this class.'
-          });
-        }
-
-        const removeIndex = unenroll.students.map(enrollment => enrollment.user.toString().indexOf(req.user.id));
-
-        unenroll.students.splice(removeIndex, 1);
-        
-        await unenroll.save();
-        res.json(unenroll.students);
-      } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error!');
+      const user = await User.findById(req.user.id).select('-password');
+      if (user.userType !== 'teacher') {
+        return res.status(400).json({
+          msg: 'You must be a teacher to post to this class'
+        });
       }
-    });
+
+      const currClass = await Class.findById(req.params.class_id);
+
+      const newComment = {
+        text: req.body.text,
+        name: req.body.name,
+        avatar: user.avatar,
+        user: req.user.id
+      };
+
+      currClass.comments.unshift(newComment);
+
+      await currClass.save();
+
+      res.json(currClass.comments);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send({ msg: 'Server Error!' });
+    }
+  }
+);
 
 module.exports = router;
