@@ -46,12 +46,10 @@ router.post(
     }
 
     if (user.userType !== 'teacher') {
-      res
-        .status(500)
-        .send({
-          msg:
-            'You must be a teacher to create a class. Please edit your account user type.'
-        });
+      res.status(500).send({
+        msg:
+          'You must be a teacher to create a class. Please edit your account user type.'
+      });
     }
 
     const { description, name, sizeLimit, status, location, rating } = req.body;
@@ -122,22 +120,48 @@ router.put('/:class_id', auth, async (req, res) => {
 // @desc      Delete Class by ID
 // @access    private
 router.delete('/:class_id', auth, async (req, res) => {
-    try {
-        await Class.findOneAndRemove({
-            _id: req.params.class_id
-        });
+  try {
+    await Class.findOneAndRemove({
+      _id: req.params.class_id
+    });
 
-        // const removeIndex = deleteClass._id.map(item => item.id).indexOf(req.params.class_id);
+    res.json({
+      msg: 'Class has been deleted.'
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
-        // deleteClass.class.splice(removeIndex, 1);
+// @route     PUT api/class/enroll/:class_id
+// @desc      Enroll in a class
+// @access    private
+router.put('/enroll/:class_id', auth, async (req, res) => {
+  try {
+    const enroll = await Class.findById(req.params.class_id);
 
-        res.json({
-            msg: 'Class has been deleted.'
-        });
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
+    if (
+      enroll.students.filter(
+        enrollment => enrollment.user.toString() === req.user.id
+      ).length > 0
+    ) {
+      return res.status(400).json({
+        msg: 'Student is already enrolled.'
+      });
     }
-})
+
+    enroll.students.unshift({ user: req.user.id });
+    await enroll.save();
+    res.json(enroll.students);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error!');
+  }
+});
+
+// @route     DELETE api/posts/unlike/:id
+// @desc      Unlike a post
+// @access    private
 
 module.exports = router;
