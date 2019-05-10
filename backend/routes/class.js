@@ -243,4 +243,41 @@ router.post(
   }
 );
 
+// @route     DELETE api/class/comment/:class_id/:comment_id
+// @desc      Teacher deleting a comment for their class
+// @access    private
+router.delete('/comment/:class_id/:comment_id', auth, async (req, res) => {
+  try {
+    const currClass = await Class.findById(req.params.class_id);
+    const comment = currClass.comments.find(
+      comment => comment.id === req.params.comment_id
+    );
+
+    if (!comment) {
+      return res.status(404).json({
+        msg: 'Comment could not be found!'
+      });
+    }
+
+    if (comment.user.toString() !== req.user.id) {
+      return res.status(401).json({
+        msg: 'User is not authorized to delete this!'
+      });
+    }
+
+    const removeIndex = currClass.comments
+      .map(comment => comment.user.toString())
+      .indexOf(req.user.id);
+
+    currClass.comments.splice(removeIndex, 1);
+
+    await currClass.save();
+
+    res.json(currClass.comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send({ msg: 'Server Error!' });
+  }
+});
+
 module.exports = router;
