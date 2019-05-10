@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { createGlobalStyle } from 'styled-components';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import AppBar from './components/AppBar/AppBar';
 import Landing from './components/Landing/Landing';
+import Login from './components/Auth/Login/Login';
+import Register from './components/Auth/Register/Register';
 
 class App extends Component {
   render() {
@@ -21,9 +24,15 @@ class App extends Component {
 
     return (
       <>
-        <GlobalStyles />
-        <AppBar />
-        <Landing />
+        <Router>
+          <GlobalStyles />
+          <AppBar />
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+          </Switch>
+        </Router>
       </>
     );
   }
