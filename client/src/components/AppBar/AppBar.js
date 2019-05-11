@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyledRow, MainNav, StyledTitle } from '../../styles/component/appbar';
 import { Button } from '../../styles/common/button';
+import { Link } from 'react-router-dom';
 
 class AppBar extends Component {
   render() {
