@@ -44,7 +44,7 @@ const Input = props => (
       name={props.name}
       type={props.type}
       value={props.value}
-      onChange={props.handleChange}
+      onChange={props.onChange}
       placeholder={props.placeholder}
     />
   </FormContainer>

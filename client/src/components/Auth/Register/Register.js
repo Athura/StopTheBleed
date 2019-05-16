@@ -1,11 +1,109 @@
-import React from 'react'
+import React, { Fragment, useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { registerUser } from '../../../actions/auth';
 
-const Register = () => {
+import Input from '../../Form/Input';
+import Select from '../../Form/Select';
+import { Button } from '../../../styles/common/button';
+
+const Register = ({ registerUser, isAuthenticated }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
+    userType: ''
+  });
+
+  const { name, email, password, password2, userType } = formData;
+
+  const userOptions = ['teacher', 'student'];
+
+  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = async e => {
+    e.preventDefault();
+
+    if(password !== password2) {
+      console.log("Passwords do not match!");
+    } else {
+      registerUser({ name, email, password, userType });
+    }
+  }
+
+  if (isAuthenticated) {
+    // This will change to dashboard when that component is implemented
+    return <Redirect to="/" />
+  }
+
   return (
-    <div>
+    <Fragment>
       <h1>Register</h1>
-    </div>
+      <p>
+        <i className="fas fa-user" /> Create Your Account
+      </p>
+      <div onSubmit>
+        <Input
+          type="text"
+          label="Name"
+          title="name"
+          name="name"
+          value={name}
+          placeholder="Enter your name here"
+          onChange={e => onChange(e)}
+        />
+        <Input
+          type="email"
+          label="Email"
+          title="email"
+          name="email"
+          value={email}
+          placeholder="Enter your email here"
+          onChange={e => onChange(e)}
+        />
+        <Select
+          name="userType"
+          title="User Type"
+          placeholder="Please select which kind of user you are"
+          options={userOptions}
+          value={userType}
+          onChange={e => onChange(e)}
+        />
+        <Input
+          type="password"
+          label="Password"
+          title="password"
+          name="password"
+          value={password}
+          placeholder="Enter a password here"
+          onChange={e => onChange(e)}
+        />
+        <Input
+          type="password"
+          label="Confirm Your Password"
+          title="Password Confirmation"
+          name="password2"
+          value={password2}
+          placeholder="Confirm your password here"
+          onChange={e => onChange(e)}
+        />
+        <Button register border onClick={onSubmit}>
+          Register
+        </Button>
+      </div>
+    </Fragment>
   )
 }
 
-export default Register
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+}
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+})
+
+export default connect(mapStateToProps, { registerUser })(Register);

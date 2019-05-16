@@ -8,12 +8,20 @@ class AppBar extends Component {
     return (
       <StyledRow>
         <MainNav>
-          <StyledTitle>Stop The Bleed</StyledTitle>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <StyledTitle>Stop The Bleed</StyledTitle>
+          </Link>
           <div>
-            <Button underline  upper>Home</Button>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <Button underline  upper>Home</Button>
+            </Link>
             <Button underline upper>About</Button>
-            <Button border upper>Login</Button>
-            <Button border upper>Register</Button>
+            <Link to="/login" style={{ textDecoration: 'none' }}>
+              <Button border upper>Login</Button>
+            </Link>
+            <Link to="/register" style={{ textDecoration: 'none' }}>
+              <Button border upper>Register</Button>
+            </Link>
           </div>
         </MainNav>
       </StyledRow>
