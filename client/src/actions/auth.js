@@ -5,7 +5,8 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   CLEAR_PROFILE,
-  LOGOUT
+  LOGOUT,
+  GET_ERRORS
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -52,7 +53,10 @@ export const registerUser = ({
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach(error => console.log(error));
+      errors.forEach(error => dispatch({
+        GET_ERRORS,
+        payload: err.response.data
+      }));
     }
 
     dispatch({
